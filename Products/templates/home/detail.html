@@ -1,0 +1,32 @@
+{% extends '_base.html' %}
+{% block body %}
+
+    <h1>{{ products.name }}</h1>
+    <img src="{{ products.image.url }}" width="200" alt="{{ product.name }}">
+    <h4>قیمت : {{ products.total_price }}</h4>
+    <p>{{ products.information }}</p>
+    <hr>
+    <hr>
+    <p>محصولات مشابه : </p>
+    {% for tag in similar %}
+        <a href="{% url 'Products:detail_product' tag.id %}">
+            <img src="{{ tag.image.url }}" alt="{{ tag.name }}" width="200">
+        </a>
+    {% endfor %}
+
+    <p>Like Or DisLike</p>
+    <p>total like : {{ products.total_like }}</p>
+    {% if is_like %}
+        <a href="{% url 'Products:like_product' products.id %}">
+            <i class="bi bi-hand-thumbs-up-fill" style="color: red"></i>
+        </a>
+    {% else %}
+        <a href="{% url 'Products:like_product' products.id %}">
+            <i class="bi bi-hand-thumbs-up" style="color: red"></i>
+        </a>
+    {% endif %}
+{% endblock %}
+
+
+
+

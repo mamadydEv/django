@@ -1,0 +1,13 @@
+{% extends '_base.html' %}
+{% block title %}
+	show
+{% endblock %}
+{% block body %}
+        <div class="card shadow my-3 p-5">
+            <h1>{{ posts.label }}</h1>
+            <p>{{ posts.time_create }}</p>
+            <p>{{ posts.caption }}</p>
+            <a type="submit" class="btn btn-warning" href="{% url 'blog:up' posts.id %}" >update</a>
+            <a type="submit" class="btn btn-danger" href="{% url 'blog:del' posts.id %}" >delete</a>
+        </div>
+{% endblock %}

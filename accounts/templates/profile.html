@@ -1,0 +1,32 @@
+{% extends '_base.html' %}
+{% block css %}
+
+{% endblock %}
+
+{% block title %}
+    profile
+{% endblock %}
+{% block body %}
+    <tabel>
+        <tr>
+            <th>user_name:{{ profile.user.username }}</th>
+        </tr>
+    <tr>
+            <th>last_name:{{ profile.user.last_name }}</th>
+        </tr>
+    <tr>
+            <th>email:{{ profile.user.email }}</th>
+        </tr>
+    <tr>
+            <th>number_phone:{{ profile.phone }}</th>
+        </tr>
+    <tr>
+            <th>address:{{ profile.address }}</th>
+        </tr>
+    <tr>
+            <th> <img src="{{ profile.image_profile.url }}" alt="{{ profile.user.username }}" width="300px"> </th>
+        </tr>
+    </tabel>
+    <a href="{% url 'accounts:update' %}" class="btn btn-warning">update</a>
+    <a href="{% url 'accounts:change' %}" class="btn btn-warning">change password</a>
+{% endblock %}

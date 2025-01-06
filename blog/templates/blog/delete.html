@@ -1,0 +1,17 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+{% block title %}
+	delete page
+{% endblock %}
+
+{% block body %}
+	<h1>are you Sure ?</h1>
+    <p>are you sure want to delete post <strong>{{ post.title }}</strong>?</p>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="yes , delete" class="btn btn-danger">
+    </form>
+{% endblock %}

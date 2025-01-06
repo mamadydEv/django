@@ -1,0 +1,20 @@
+{% extends '_base.html' %}
+{% block title %}
+	page home
+{% endblock %}
+{% block body %}
+{% for x in posts %}
+    <div class="card shadow-sm my-3">
+        <div class="card-body">
+            <h3>{{ x.label }}</h3>
+            <p>{{ x.time_create }}</p>
+            <p>{{ x.time_update }}</p>
+            <a class="btn btn-sm btn-success" href="{% url 'blog:detail'  x.id %}">Read More</a>
+        </div>
+    </div>
+
+
+{% endfor %}
+{% endblock %}
+
+

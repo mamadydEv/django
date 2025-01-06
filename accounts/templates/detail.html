@@ -1,0 +1,13 @@
+{% extends '_base.html' %}
+{% block title %}
+	show
+{% endblock %}
+{% block body %}
+        <div class="card shadow my-3 p-5">
+            <h1>{{ post.name }}</h1>
+            <p>{{ post.last_name }}</p>
+            <p>{{ post.email }}</p>
+            <a type="submit" class="btn btn-warning" href="{% url 'accounts:update' post.id %}" >update</a>
+            <a type="submit" class="btn btn-danger" href="{% url 'accounts:delete' post.id %}" >delete</a>
+        </div>
+{% endblock %}

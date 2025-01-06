@@ -1,0 +1,52 @@
+{% extends '_base.html' %}
+{% block body %}
+{##}
+{#    {% for cat in category %}#}
+{#        <div class="card">#}
+{#            <a href="{{ cat.get_absolute_url }}">#}
+{#                <h1>{{ cat.name }}</h1>#}
+{#                <img src="{{ cat.image.url }}" width="400" alt="{{ cat.name }}" title="عکس دسته بندی موبایل">#}
+{#            </a>#}
+{#        </div>#}
+{##}
+{#    {% endfor %}#}
+
+{% for data in category %}
+        <a href="{{ data.get_absolute_url }}">{{ data.name }}</a>
+        <div class="btn-group">
+            <button type="button" class="btn btn-danger dropdown-toggle"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false">
+            </button>
+            <ul class="dropdown-menu">
+                {% for info in data.sub.all %}
+                    <li><a class="dropdown-item"
+                           href="{{ info.get_absolute_url }}">{{ info.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+
+
+
+
+
+
+
+    {% for product in  products %}
+        <h1>{{ product.name }}</h1>
+        <a href="{% url 'Products:detail_product' product.id %}">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}"
+                 title="{{ product.information }}">
+        </a>
+        {% if product.discount %}
+            <h4 style="text-decoration: line-through">قیمت : {{ product.unit_price }}</h4>
+            <h3>{{ product.total_price }}</h3>
+        {% else %}
+            <h3>{{ product.total_price }}</h3>
+        {% endif %}
+
+        <hr>
+    {% endfor %}
+
+{% endblock %}

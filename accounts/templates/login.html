@@ -1,0 +1,9 @@
+{% extends '_base.html' %}
+{% block body %}
+	<form method="post">
+        {% csrf_token %}
+        <h3>username :</h3>{{ form.user }}
+        <h3>password : </h3>{{ form.password }}
+        <button class="btn btn-primary" type="submit">sumbit</button>
+    </form>
+{% endblock %}
