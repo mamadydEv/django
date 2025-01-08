@@ -1,5 +1,10 @@
 {% extends '_base.html' %}
 {% block body %}
+    <form method="post" action="{% url 'Products:Searchform' %}">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" class="btn btn-warning">search</button>
+    </form>
 {##}
 {#    {% for cat in category %}#}
 {#        <div class="card">#}

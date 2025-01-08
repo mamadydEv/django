@@ -2,6 +2,7 @@
 {% block body %}
 
     <h1>{{ products.name }}</h1>
+    <h3>Avg rate : {{ products.average }}</h3>
     <img src="{{ products.image.url }}" width="200" alt="{{ product.name }}">
     <h4>قیمت : {{ products.total_price }}</h4>
     <p>{{ products.information }}</p>
@@ -25,6 +26,58 @@
             <i class="bi bi-hand-thumbs-up" style="color: red"></i>
         </a>
     {% endif %}
+    <hr>
+    {% for com in comment %}
+        <p>user name : {{ com.user.username }}</p>
+        <p>comment : {{ com.comment }}</p>
+        <p>rate : {{ com.rate }}</p>
+        <p>Like Or DisLike</p>
+        <p>total like : {{ com.total_like_comment }}</p>
+        {% if is_like_comment %}
+            <a href="{% url 'Products:like_comment' com.id %}">
+                <i class="bi bi-hand-thumbs-up-fill" style="color: red"></i>
+            </a>
+        {% else %}
+            <a href="{% url 'Products:like_comment' com.id %}">
+                <i class="bi bi-hand-thumbs-up" style="color: red"></i>
+            </a>
+        {% endif %}
+        <form method="post" action="{% url 'Products:reply' products.id com.id %}">
+            {% csrf_token %}
+            {{ replyForm.as_p }}
+            <button class="btn btn-info" type="submit">reply</button>
+        </form>
+        ============================================================
+        <p>reply to this comment</p>
+        {% for reply in com.comment_reply.all %}
+            {{ reply.comment }}
+        {% endfor %}
+    {% endfor %}
+    <p>comments :</p>
+    <form method="post" action="{% url 'Products:comment' products.id %}">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <button class="btn btn-primary">comment</button>
+    </form>
+    <div class="row w-60">
+        <div id="carouselExample" class="carousel slide">
+            <div class="carousel-inner ">
+                {% for img in images %}
+                    <div class="carousel-item {% if forloop.first %} active {% endif %}">
+                        <img src="{{ img.image.url }}" class="d-block w-100" alt="..." width="70">
+                    </div>
+               {% endfor %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
 {% endblock %}
 
 
