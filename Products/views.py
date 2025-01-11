@@ -3,6 +3,7 @@ from .models import *
 from django.shortcuts import redirect
 from .forms import SearchForm
 from django.db.models import Q
+from cart.models import *
 
 
 
@@ -29,6 +30,7 @@ def detail_product(request, id):
         products = Product.objects.get(id=id)
         comment_form = commentform()
         replyForm = ReplyForm()
+        quantityForm = CartForm()
         images = Images.objects.filter(products_id=id)
         comment = Comment.objects.filter(product_id=id , is_reply=False)
         comments = Comment.objects.get(id=id)
@@ -47,6 +49,7 @@ def detail_product(request, id):
                                                     'replyForm' : replyForm ,
                                                     'is_like_comment' : is_like_comment ,
                                                     'images' : images
+                                                    , 'quantityForm' : quantityForm
                                                     })
 
 

@@ -5,7 +5,14 @@
     <h3>Avg rate : {{ products.average }}</h3>
     <img src="{{ products.image.url }}" width="200" alt="{{ product.name }}">
     <h4>قیمت : {{ products.total_price }}</h4>
+        <form method="post" action="{% url 'cart:add_order' products.id %}" >
+            {% csrf_token %}
+            <input type="number" min="1" max="{{ products.amount }}" value="1"
+                required oninvalid="setCustomValidity('The maximum number shuld be {{ products.amount }}')">
+            <button class="btn btn-dark" type="sumbit">sumbit</button>
+        </form>
     <p>{{ products.information }}</p>
+
     <hr>
     <hr>
     <p>محصولات مشابه : </p>
@@ -53,12 +60,14 @@
             {{ reply.comment }}
         {% endfor %}
     {% endfor %}
-    <p>comments :</p>
-    <form method="post" action="{% url 'Products:comment' products.id %}">
-        {% csrf_token %}
-        {{ comment_form.as_p }}
-        <button class="btn btn-primary">comment</button>
-    </form>
+    {% if request.user.is_authenticated %}
+        <p>comments :</p>
+        <form method="post" action="{% url 'Products:comment' products.id %}">
+            {% csrf_token %}
+            {{ comment_form.as_p }}
+            <button class="btn btn-primary">comment</button>
+        </form>
+    {% endif %}
     <div class="row w-60">
         <div id="carouselExample" class="carousel slide">
             <div class="carousel-inner ">
@@ -66,7 +75,7 @@
                     <div class="carousel-item {% if forloop.first %} active {% endif %}">
                         <img src="{{ img.image.url }}" class="d-block w-100" alt="..." width="70">
                     </div>
-               {% endfor %}
+                {% endfor %}
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>

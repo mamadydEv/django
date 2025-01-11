@@ -1,0 +1,29 @@
+{% extends '_base.html' %}
+{% block body %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">image</th>
+            <th scope="col">product_name</th>
+            <th scope="col">product_price</th>
+            <th scope="col">quantity</th>
+            <th scope="col">total_price</th>
+            <th scope="col">order_delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>><img src="{{ order.product.image.url }}" width="120px"></td>
+                <td>{{ order.product.name }}</td>
+                <td>{{ order.product.total_price }}</td>
+                <td>{{ order.quantity }}</td>
+                <td>{% widthratio  order.product.total_price 1 order.quantity %}</td>
+                <th scope="col"><a href="{% url 'cart:remove_order' order.id %}"><i class="bi bi-trash" style="color: red"></i></a></th>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
